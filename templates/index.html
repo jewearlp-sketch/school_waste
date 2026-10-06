@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>JRMSU-SC Student Incident Alarm System</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>JRMSU-SC</h1>
+
+        <h2>Student Incident Alarm System</h2>
+
+        <p>
+            Student safety reporting and emergency assistance system
+        </p>
+
+    </div>
+
+
+    <!-- STUDENT INFORMATION -->
+
+    <div class="card">
+
+        <h2>Student Information</h2>
+
+        <label>Student Name</label>
+
+        <input
+            type="text"
+            id="student_name"
+            placeholder="Enter your name"
+        >
+
+        <label>Current Location</label>
+
+        <input
+            type="text"
+            id="location"
+            placeholder="Example: CCS Building"
+        >
+
+    </div>
+
+
+    <!-- FUNCTION 1 -->
+
+    <div class="card">
+
+        <h2>📝 Report an Incident</h2>
+
+        <p>
+            Use this when you want to report an incident
+            such as bullying, harassment, discrimination,
+            fighting, theft, or other incidents.
+        </p>
+
+
+        <form action="/report" method="POST">
+
+            <input
+                type="hidden"
+                name="student_name"
+                id="report_student"
+            >
+
+            <input
+                type="hidden"
+                name="location"
+                id="report_location"
+            >
+
+
+            <label>Incident Type</label>
+
+            <select name="incident_type" required>
+
+                <option value="">
+                    Select incident
+                </option>
+
+                <option value="Bullying">
+                    Bullying
+                </option>
+
+                <option value="Harassment">
+                    Harassment
+                </option>
+
+                <option value="Discrimination">
+                    Discrimination
+                </option>
+
+                <option value="Fighting">
+                    Fighting
+                </option>
+
+                <option value="Threat">
+                    Threat
+                </option>
+
+                <option value="Theft">
+                    Theft
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+
+            <label>Description</label>
+
+            <textarea
+                name="description"
+                placeholder="Explain what happened"
+                required
+            ></textarea>
+
+
+            <label>Risk Level</label>
+
+            <select name="risk_level" required>
+
+                <option value="">
+                    Select risk level
+                </option>
+
+                <option value="Low Risk">
+                    Low Risk
+                </option>
+
+                <option value="Moderate Risk">
+                    Moderate Risk
+                </option>
+
+                <option value="High Risk">
+                    High Risk
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="report-button"
+                onclick="copyStudentInfo()"
+            >
+                📝 SUBMIT INCIDENT REPORT
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- FUNCTION 2 -->
+
+    <div class="card emergency-card">
+
+        <h2>🚨 Emergency Alarm</h2>
+
+        <p>
+
+            Use this when there is a sudden incident
+            that needs immediate attention from school personnel.
+
+        </p>
+
+
+        <form
+            action="/alarm"
+            method="POST"
+            onsubmit="return confirmAlarm()"
+        >
+
+            <input
+                type="hidden"
+                name="student_name"
+                id="alarm_student"
+            >
+
+            <input
+                type="hidden"
+                name="location"
+                id="alarm_location"
+            >
+
+
+            <button
+                type="submit"
+                class="alarm-button"
+                onclick="copyAlarmInfo()"
+            >
+
+                🚨 TAP FOR EMERGENCY
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- PERSONNEL -->
+
+    <div class="personnel-link">
+
+        <a href="/personnel">
+
+            👮 Open Personnel Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function copyStudentInfo() {
+
+    document.getElementById("report_student").value =
+        document.getElementById("student_name").value;
+
+    document.getElementById("report_location").value =
+        document.getElementById("location").value;
+
+}
+
+
+function copyAlarmInfo() {
+
+    document.getElementById("alarm_student").value =
+        document.getElementById("student_name").value;
+
+    document.getElementById("alarm_location").value =
+        document.getElementById("location").value;
+
+}
+
+
+function confirmAlarm() {
+
+    let answer = confirm(
+        "Are you sure you need immediate assistance?"
+    );
+
+    return answer;
+
+}
+
+</script>
+
+
+</body>
+
+</html>

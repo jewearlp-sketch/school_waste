@@ -1,0 +1,478 @@
+```html
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Personnel Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>👮 Personnel Dashboard</h1>
+
+        <p>
+            JRMSU-SC Student Incident Alarm System
+        </p>
+
+    </div>
+
+
+    <!-- EMERGENCY NOTIFICATION -->
+
+    <div
+        id="newAlarm"
+        class="new-alarm"
+    >
+
+        🚨 NEW EMERGENCY ALARM! 🚨
+
+    </div>
+
+
+    <!-- EMERGENCY ALARMS -->
+
+    <div class="section-title">
+
+        <h2>
+            🚨 Emergency Alerts
+        </h2>
+
+    </div>
+
+
+    <div id="alarmList">
+
+        {% if alarms %}
+
+            {% for alarm in alarms %}
+
+            <div class="alarm-alert">
+
+                <h2>
+                    🚨 EMERGENCY ALERT
+                </h2>
+
+
+                <p>
+
+                    <strong>
+                        Student:
+                    </strong>
+
+                    {{ alarm["student_name"] }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Location:
+                    </strong>
+
+                    {{ alarm["location"] }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Time:
+                    </strong>
+
+                    {{ alarm["alarm_time"] }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Status:
+                    </strong>
+
+                    <span class="active">
+
+                        {{ alarm["status"] }}
+
+                    </span>
+
+                </p>
+
+
+                <!-- UPDATE ALARM STATUS -->
+
+                <form
+                    action="{{ url_for('update_alarm', alarm_id=alarm['id']) }}"
+                    method="POST"
+                >
+
+                    <button
+                        type="submit"
+                        name="status"
+                        value="ACTIVE"
+                    >
+                        🔴 Active
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        name="status"
+                        value="RESPONDING"
+                    >
+                        🟡 Responding
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        name="status"
+                        value="RESOLVED"
+                    >
+                        🟢 Resolved
+                    </button>
+
+                </form>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                No emergency alarms yet.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- INCIDENT REPORTS -->
+
+    <div class="section-title">
+
+        <h2>
+            📝 Incident Reports
+        </h2>
+
+    </div>
+
+
+    {% if incidents %}
+
+        {% for incident in incidents %}
+
+        <div class="incident-card
+
+            {% if incident['risk_level'] == 'High Risk' %}
+
+                high-risk
+
+            {% elif incident['risk_level'] == 'Moderate Risk' %}
+
+                moderate-risk
+
+            {% else %}
+
+                low-risk
+
+            {% endif %}
+
+        ">
+
+
+            <h2>
+
+                {{ incident["incident_type"] }}
+
+            </h2>
+
+
+            <p>
+
+                <strong>
+                    Student:
+                </strong>
+
+                {{ incident["student_name"] }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Location:
+                </strong>
+
+                {{ incident["location"] }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Description:
+                </strong>
+
+                {{ incident["description"] }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Risk Level:
+                </strong>
+
+                {{ incident["risk_level"] }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Reported:
+                </strong>
+
+                {{ incident["report_time"] }}
+
+            </p>
+
+
+            <!-- INCIDENT STATUS -->
+
+            <p>
+
+                <strong>
+                    Status:
+                </strong>
+
+                {% if incident["status"] == "Pending" %}
+
+                    <span class="pending">
+                        🟡 Pending
+                    </span>
+
+                {% elif incident["status"] == "In Action" %}
+
+                    <span class="in-action">
+                        🔵 In Action
+                    </span>
+
+                {% elif incident["status"] == "Done Taking Action" %}
+
+                    <span class="done">
+                        🟢 Done Taking Action
+                    </span>
+
+                {% else %}
+
+                    {{ incident["status"] }}
+
+                {% endif %}
+
+            </p>
+
+
+            <!-- UPDATE INCIDENT STATUS -->
+
+            <form
+                action="{{ url_for('update_incident', incident_id=incident['id']) }}"
+                method="POST"
+            >
+
+                <button
+                    type="submit"
+                    name="status"
+                    value="Pending"
+                >
+                    🟡 Pending
+                </button>
+
+
+                <button
+                    type="submit"
+                    name="status"
+                    value="In Action"
+                >
+                    🔵 In Action
+                </button>
+
+
+                <button
+                    type="submit"
+                    name="status"
+                    value="Done Taking Action"
+                >
+                    🟢 Done Taking Action
+                </button>
+
+            </form>
+
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+
+            No incident reports yet.
+
+        </div>
+
+    {% endif %}
+
+
+    <br>
+
+
+    <a
+        href="/"
+        class="back-button"
+    >
+
+        ← Back to Student System
+
+    </a>
+
+
+</div>
+
+
+<!-- ========================= -->
+<!-- EMERGENCY SOUND -->
+<!-- ========================= -->
+
+<audio
+    id="alarmSound"
+    src="{{ url_for('static', filename='sounds/alarm.mp3') }}"
+    preload="auto"
+>
+</audio>
+
+
+<script>
+
+
+// Remember the last alarm
+
+let lastAlarmID = 0;
+
+
+// Check for a new emergency alarm
+
+function checkForNewAlarm() {
+
+    fetch("/check_alarm")
+
+        .then(response => response.json())
+
+        .then(data => {
+
+
+            // No alarm
+
+            if (data.id === 0) {
+
+                return;
+
+            }
+
+
+            // New alarm detected
+
+            if (data.id > lastAlarmID) {
+
+                lastAlarmID = data.id;
+
+
+                // Show notification
+
+                let notification =
+                    document.getElementById("newAlarm");
+
+                notification.style.display = "block";
+
+
+                // Play alarm sound
+
+                let sound =
+                    document.getElementById("alarmSound");
+
+                sound.currentTime = 0;
+
+                sound.play().catch(function(error) {
+
+                    console.log(
+                        "Sound was blocked by the browser."
+                    );
+
+                });
+
+
+                // Reload dashboard
+
+                setTimeout(function() {
+
+                    location.reload();
+
+                }, 1000);
+
+            }
+
+        })
+
+        .catch(function(error) {
+
+            console.log(
+                "Error checking alarm:",
+                error
+            );
+
+        });
+
+}
+
+
+// Check every 2 seconds
+
+setInterval(
+    checkForNewAlarm,
+    2000
+);
+
+
+</script>
+
+
+</body>
+
+</html>

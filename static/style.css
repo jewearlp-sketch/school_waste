@@ -1,0 +1,526 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-color: #f2f5f3;
+
+    color: #222;
+
+}
+
+
+.container {
+
+    width: 90%;
+
+    max-width: 900px;
+
+    margin: 30px auto;
+
+}
+
+
+.header {
+
+    text-align: center;
+
+    background-color: #176b35;
+
+    color: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.header h1 {
+
+    margin: 0;
+
+}
+
+
+.card {
+
+    background-color: white;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+
+}
+
+
+.card h2 {
+
+    margin-top: 0;
+
+}
+
+
+label {
+
+    display: block;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+
+    margin-bottom: 5px;
+
+}
+
+
+input,
+select,
+textarea {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+}
+
+
+textarea {
+
+    height: 120px;
+
+    resize: vertical;
+
+}
+
+
+.report-button {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #176b35;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.report-button:hover {
+
+    background-color: #0f4f27;
+
+}
+
+
+.emergency-card {
+
+    border: 3px solid #d62828;
+
+    text-align: center;
+
+}
+
+
+.alarm-button {
+
+    width: 100%;
+
+    padding: 25px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #d62828;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.alarm-button:hover {
+
+    background-color: #a91f1f;
+
+}
+
+
+.personnel-link {
+
+    text-align: center;
+
+    margin: 30px;
+
+}
+
+
+.personnel-link a {
+
+    display: inline-block;
+
+    padding: 14px 20px;
+
+    background-color: #333;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+}
+
+
+.section-title {
+
+    margin-top: 30px;
+
+}
+
+
+.alarm-alert {
+
+    background-color: #ffe0e0;
+
+    border: 3px solid #d62828;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+}
+
+
+.alarm-alert h2 {
+
+    color: #d62828;
+
+}
+
+
+.active {
+
+    color: #d62828;
+
+    font-weight: bold;
+
+}
+
+
+.action-button {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #d62828;
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
+
+.incident-card {
+
+    background-color: white;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+}
+
+
+.high-risk {
+
+    border-left: 8px solid #d62828;
+
+}
+
+
+.moderate-risk {
+
+    border-left: 8px solid #f0a500;
+
+}
+
+
+.low-risk {
+
+    border-left: 8px solid #2a9d4b;
+
+}
+
+
+.empty {
+
+    background-color: white;
+
+    padding: 25px;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+.back-button {
+
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    background-color: #555;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+/* ========================= */
+/* NEW EMERGENCY NOTIFICATION */
+/* ========================= */
+
+.new-alarm {
+
+    display: none;
+
+    background-color: #d62828;
+
+    color: white;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    animation: alarmFlash 0.8s infinite;
+
+}
+
+
+@keyframes alarmFlash {
+
+    0% {
+
+        opacity: 1;
+
+    }
+
+    50% {
+
+        opacity: 0.4;
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+    }
+
+}/* EMERGENCY NOTIFICATION */
+
+.notification {
+
+    display: none;
+
+    background-color: #d62828;
+
+    color: white;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    animation: emergencyFlash 1s infinite;
+
+}
+
+
+@keyframes emergencyFlash {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+```css
+/* ========================= */
+/* ALARM STATUS */
+/* ========================= */
+
+.status-active {
+
+    color: #d62828;
+
+    font-weight: bold;
+
+}
+
+
+.status-action {
+
+    color: #f0a500;
+
+    font-weight: bold;
+
+}
+
+
+.status-done {
+
+    color: #2a9d4b;
+
+    font-weight: bold;
+
+}
+
+
+/* PERSONNEL ACTION BUTTONS */
+
+.action-area {
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #ddd;
+
+}
+
+
+.action-area form {
+
+    margin-top: 10px;
+
+}
+
+
+.action-taking {
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #f0a500;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-right: 8px;
+
+}
+
+
+.action-taking:hover {
+
+    background-color: #c98200;
+
+}
+
+
+.action-done {
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #2a9d4b;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.action-done:hover {
+
+    background-color: #207638;
+
+}
+```
